@@ -49,6 +49,16 @@ class SafetyGuard(private val settings: SettingsStore) {
         val pkg = snapshot.packageName.lowercase()
         val matched = mutableListOf<String>()
 
+        // 0. 制限なしモード（なんでもあり）: 電源ボタン（画面オフ）キルのみ有効で操作は一切止めない
+        if (mode == SafetyMode.UNRESTRICTED) {
+            return SafetyVerdict(
+                riskLevel = RiskLevel.SAFE,
+                allowed = true,
+                requiresApproval = false,
+                reason = "制限なしモード：操作を制限せずそのまま実行します。"
+            )
+        }
+
         // 1. 観測専用モード: 画面操作を一切禁止
         if (mode == SafetyMode.OBSERVE_ONLY &&
             decision.actionType in setOf(

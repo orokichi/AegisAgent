@@ -10,6 +10,7 @@ enum class RiskLevel(val label: String, val severity: Int) {
 }
 
 enum class SafetyMode(val label: String, val description: String) {
+    UNRESTRICTED("制限なし（なんでもあり）", "操作のブロックや事前確認を一切行わず、電源ボタン（画面オフ）での緊急キルのみ有効にします"),
     STRICT("厳格セーフモード", "決済・送信・設定変更・削除などは即ストップし、注意レベルでも確認を求めます"),
     STANDARD("標準セーフモード", "重大な危険操作は完全ブロック、送信・購入・削除などは実行前に承認を求めます"),
     OBSERVE_ONLY("観測専用（操作禁止）", "画面の読み取りとAI分析のみ行い、実際のタップや文字入力は一切行いません")

@@ -199,7 +199,7 @@ private fun AddScheduleDialog(
     var startHour by remember { mutableIntStateOf(8) }
     var startMinute by remember { mutableIntStateOf(0) }
     var endHour by remember { mutableIntStateOf(9) }
-    var strictMode by remember { mutableStateOf(true) }
+    var strictMode by remember { mutableStateOf(false) }
     var selectedDays by remember {
         mutableStateOf(
             setOf(
@@ -295,7 +295,7 @@ private fun AddScheduleDialog(
                                 windowEndMinute = startMinute,
                                 daysOfWeek = selectedDays,
                                 enabled = true,
-                                safetyMode = if (strictMode) SafetyMode.STRICT else SafetyMode.STANDARD
+                                safetyMode = if (strictMode) SafetyMode.STRICT else SafetyMode.UNRESTRICTED
                             )
                         )
                     }

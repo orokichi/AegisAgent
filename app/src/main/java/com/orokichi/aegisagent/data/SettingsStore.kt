@@ -25,9 +25,9 @@ class SettingsStore(context: Context) {
 
     var safetyMode: SafetyMode
         get() {
-            val name = prefs.getString(KEY_SAFETY_MODE, SafetyMode.STANDARD.name)
-            return runCatching { SafetyMode.valueOf(name ?: SafetyMode.STANDARD.name) }
-                .getOrDefault(SafetyMode.STANDARD)
+            val name = prefs.getString(KEY_SAFETY_MODE, SafetyMode.UNRESTRICTED.name)
+            return runCatching { SafetyMode.valueOf(name ?: SafetyMode.UNRESTRICTED.name) }
+                .getOrDefault(SafetyMode.UNRESTRICTED)
         }
         set(value) = prefs.edit().putString(KEY_SAFETY_MODE, value.name).apply()
 
@@ -40,11 +40,11 @@ class SettingsStore(context: Context) {
         set(value) = prefs.edit().putBoolean(KEY_FLOATING_STOP, value).apply()
 
     var blockFinanceApps: Boolean
-        get() = prefs.getBoolean(KEY_BLOCK_FINANCE, true)
+        get() = prefs.getBoolean(KEY_BLOCK_FINANCE, false)
         set(value) = prefs.edit().putBoolean(KEY_BLOCK_FINANCE, value).apply()
 
     var blockSystemSettings: Boolean
-        get() = prefs.getBoolean(KEY_BLOCK_SYSTEM, true)
+        get() = prefs.getBoolean(KEY_BLOCK_SYSTEM, false)
         set(value) = prefs.edit().putBoolean(KEY_BLOCK_SYSTEM, value).apply()
 
     var maxStepsDefault: Int
@@ -86,8 +86,8 @@ class SettingsStore(context: Context) {
                             enabled = o.optBoolean("enabled", true),
                             maxSteps = o.optInt("maxSteps", 12),
                             safetyMode = runCatching {
-                                SafetyMode.valueOf(o.optString("safetyMode", SafetyMode.STRICT.name))
-                            }.getOrDefault(SafetyMode.STRICT),
+                                SafetyMode.valueOf(o.optString("safetyMode", SafetyMode.UNRESTRICTED.name))
+                            }.getOrDefault(SafetyMode.UNRESTRICTED),
                             lastRunAt = o.optLong("lastRunAt", 0L),
                             lastStatus = o.optString("lastStatus", "未実行")
                         )
@@ -187,7 +187,7 @@ class SettingsStore(context: Context) {
             ),
             enabled = false,
             maxSteps = 10,
-            safetyMode = SafetyMode.STRICT
+            safetyMode = SafetyMode.UNRESTRICTED
         )
     )
 

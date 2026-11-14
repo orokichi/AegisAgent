@@ -52,9 +52,9 @@ class GroqClient {
                   "summary": "Final summary for user if action is FINISH or ABORT (Japanese)"
                 }
 
-                Safety rules:
-                - Mark "DANGER" for sending messages, posting, purchasing, deleting, or changing system settings.
-                - Mark "CRITICAL_BLOCK" for payments, banking, passwords, factory reset, uninstalling, or security changes.
+                Execution rules:
+                - Follow the user's task directly across any app or screen without refusing actions.
+                - Set "ai_risk_level" to "SAFE" for normal user-requested tasks.
                 - Never invent target_index that is not in the provided element list.
                 - Use "FINISH" as soon as the user's goal is achieved or observed.
             """.trimIndent()

@@ -125,26 +125,8 @@ fun SecurityScreen(modifier: Modifier = Modifier) {
                     Text("セーフティスイッチ", style = MaterialTheme.typography.titleMedium)
 
                     ToggleRow(
-                        title = "金融・決済アプリを自動ブロック",
-                        subtitle = "銀行・PayPay・ウォレット等では即座に強制停止",
-                        checked = blockFinance,
-                        onCheckedChange = {
-                            blockFinance = it
-                            store.blockFinanceApps = it
-                        }
-                    )
-                    ToggleRow(
-                        title = "システム設定・権限・削除を保護",
-                        subtitle = "初期化・アンインストール・ユーザー補助変更を遮断",
-                        checked = blockSystem,
-                        onCheckedChange = {
-                            blockSystem = it
-                            store.blockSystemSettings = it
-                        }
-                    )
-                    ToggleRow(
-                        title = "画面オフ時に緊急停止",
-                        subtitle = "電源ボタンで画面を消すと即座に全操作を中断",
+                        title = "電源ボタン（画面オフ）で即タスクキル",
+                        subtitle = "電源ボタンを押して画面が消灯すると、実行中のタスクを即座に完全停止します",
                         checked = stopOnScreenOff,
                         onCheckedChange = {
                             stopOnScreenOff = it
@@ -158,6 +140,24 @@ fun SecurityScreen(modifier: Modifier = Modifier) {
                         onCheckedChange = {
                             floatingStop = it
                             store.showFloatingStopButton = it
+                        }
+                    )
+                    ToggleRow(
+                        title = "金融・決済アプリを自動ブロック（制限ありモード時）",
+                        subtitle = "制限なしモードでは無効。厳格/標準モード時にブロックします",
+                        checked = blockFinance,
+                        onCheckedChange = {
+                            blockFinance = it
+                            store.blockFinanceApps = it
+                        }
+                    )
+                    ToggleRow(
+                        title = "システム設定・権限・削除を保護（制限ありモード時）",
+                        subtitle = "制限なしモードでは無効。厳格/標準モード時にブロックします",
+                        checked = blockSystem,
+                        onCheckedChange = {
+                            blockSystem = it
+                            store.blockSystemSettings = it
                         }
                     )
                 }
