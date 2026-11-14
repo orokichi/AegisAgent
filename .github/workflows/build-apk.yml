@@ -1,0 +1,52 @@
+name: Build AegisAgent APK
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.11.1"
+
+      - name: Build Release APK
+        run: gradle :app:assembleRelease --stacktrace
+
+      - name: Copy APK
+        run: cp app/build/outputs/apk/release/app-release.apk AegisAgent-v1.0.${{ github.run_number }}.apk
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AegisAgent-apk
+          path: AegisAgent-*.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: AegisAgent v1.0.${{ github.run_number }}
+          body: |
+            ### AegisAgent Android APK Release
+            - Android AccessibilityService + Groq Console API 自律型AIエージェント
+            - 多層セキュリティセーブ装置・緊急停止システム・定期タスク実行
+            - Material 3 Expressive + Dynamic Color 対応
+          files: AegisAgent-*.apk
+          make_latest: true
