@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AegisAgent</string>
+    <string name="accessibility_service_label">AegisAgent 自律操作・安全保護サービス</string>
+    <string name="accessibility_service_description">画面上の要素を読み取り、Groq AIの判断と強力なセキュリティセーブ装置のもとで自律操作を行います。フローティング緊急停止ボタンでいつでも即座に停止できます。</string>
+</resources>

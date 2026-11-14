@@ -1,0 +1,3 @@
+-keep class com.orokichi.aegisagent.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
